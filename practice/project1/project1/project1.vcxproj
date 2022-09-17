@@ -154,6 +154,8 @@
     <ClCompile Include="administrator.cpp" />
     <ClCompile Include="administrator_module.cpp" />
     <ClCompile Include="buyers.cpp" />
+    <ClCompile Include="calculator.cpp" />
+    <ClCompile Include="check.cpp" />
     <ClCompile Include="information.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main1.cpp" />
@@ -165,6 +167,8 @@
     <ClInclude Include="administrator.h" />
     <ClInclude Include="administrator_module.h" />
     <ClInclude Include="buyers.h" />
+    <ClInclude Include="calculator.h" />
+    <ClInclude Include="check.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="information.h" />
     <ClInclude Include="main1.h" />

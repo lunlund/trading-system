@@ -1,8 +1,9 @@
 #include"users.h"
+#include"calculator.h"
 void users::menu()
 {
 	cout << "==============================================================" << endl;
-	cout << "1.我是买家 2.我是卖家 3.个人信息管理 4.注销登录" << endl;
+	cout << "1.我是买家 2.我是卖家 3.个人信息管理 4.注销登录 5.计算器" << endl;
 	cout << "==============================================================" << endl;
 
 }
@@ -22,6 +23,7 @@ A:
 	case 4:b.all_order(a); break;
 	case 5:b.commodity_information(); break;
 	case 6:return; break;
+	case 7:calculator(); break;
 	default:cout << "输入错误" << endl;
 	}
 	goto A;
@@ -44,6 +46,7 @@ A:
 	case 4:b.delete_commodity(a); break;
 	case 5:b.all_order(a); break;
 	case 6:return; break;
+	case 7:calculator(); break;
 	default:cout << "输入错误" << endl;
 	}
 	goto A;

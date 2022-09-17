@@ -1,4 +1,5 @@
 #include"user_module.h"
+#include"calculator.h"
 void user_module(User &a)
 {
 A:
@@ -13,6 +14,7 @@ A:
 	case 2:b.seller_module(a); break;
 	case 3:b.self_information(a); break;
 	case 4:return; break;
+	case 5:calculator(); break;
 	default:cout << "ÊäÈë´íÎó" << endl; break;
 	}
 	goto A;

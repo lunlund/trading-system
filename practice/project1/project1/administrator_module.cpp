@@ -1,4 +1,5 @@
 #include"administrator_module.h"
+#include"calculator.h"
 void administrator_module()
 {
 A:
@@ -16,6 +17,7 @@ A:
 	case 5:a.all_user(); break;
 	case 6:a.delete_user(); break;
 	case 7:return; break;
+	case 8:calculator(); break;
 	default:cout << "ÊäÈë´íÎó" << endl;
 	}
 	goto A;
