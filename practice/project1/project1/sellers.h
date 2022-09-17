@@ -8,7 +8,7 @@ public:
 	void menu();
 	void new_commodity(User &a);
 	void all_commodity(User &a);
-	void modify_information();
+	void modify_information(User &a);
 	void delete_commodity(User &a);
 	void all_order(User &a);
 

@@ -1,46 +1,48 @@
 ﻿#include"main1.h"
 #include"administrator_module.h"
 #include"user_module.h"
+#include<string>
 int main()
 {
-A:
-	main_ a;
-	a.menu();
-	int m;
-	cout << "请输入操作" << endl;
-	cin >> m;
-	switch (m)
+	while (1)
 	{
-	case 1:if (a.administrator() == 1)
-	{
-		administrator_module();
-	}
-		   else
-	{
-		cout << "密码错误，登录失败，返回主菜单" << endl;
-	}break;
-	case 2:if (a.sign_up() == 1)
-	{
-		cout << "注册成功" << endl;
-	}
-		   else
-	{
-		cout << "注册失败" << endl;
-	}break;
-	case 3: {
-		User *aa = a.sign_in();
-		if (aa != NULL)
+		main_ a;
+		a.menu();
+		int m;
+		cout << "请输入操作" << endl;
+		cin >> m;
+		switch (m)
 		{
-			user_module(*aa);
+		case 1:if (a.administrator() == 1)
+		{
+			administrator_module();
 		}
-		else
+			   else
 		{
-			//cout << "密码错误，登录失败，返回主菜单" << endl;
-		}break; }
-	case 4:return 0; break;
-	default:cout << "输入错误" << endl; break;
+			cout << "密码错误，登录失败，返回主菜单" << endl;
+		}break;
+		case 2:if (a.sign_up() == 1)
+		{
+			cout << "注册成功" << endl;
+		}
+			   else
+		{
+			cout << "注册失败" << endl;
+		}break;
+		case 3: {
+			User *aa = a.sign_in();
+			if (aa != NULL)
+			{
+				user_module(*aa);
+			}
+			else
+			{
+				//cout << "密码错误，登录失败，返回主菜单" << endl;
+			}break; }
+		case 4:return 0; break;
+		default:cout << "输入错误" << endl; break;
+		}
 	}
-	goto A;
 
 
 }

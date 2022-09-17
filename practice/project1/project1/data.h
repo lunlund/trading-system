@@ -33,4 +33,5 @@ struct Order
 	char date[11];
 	char sellerID[5];
 	char buyerID[5];
+	int state;
 };

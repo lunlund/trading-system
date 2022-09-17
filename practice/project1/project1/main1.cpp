@@ -26,7 +26,9 @@ bool main_::sign_up()
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "a+");
 	fseek(fp,0, SEEK_END);
 	int m = ftell(fp) / sizeof(User);
-	User a;
+	fseek(fp, 0, SEEK_SET);
+	int n = m;
+	User a,aa;
 	strcpy(a.userID, "U000");
 	for (int i = 1; ; i++)
 	{
@@ -43,6 +45,17 @@ A:cin >> a.username;
 		cout << "超过十个字符，请重新输入" << endl;
 		goto A;
 	}
+	for (int i = 0; i <= n - 1; i++)
+	{
+		fread(&aa, sizeof(User), 1, fp);
+		if (strcmp(aa.username, a.username) == 0)
+		{
+			cout << "此用户名已有人使用，请重新输入" << endl;
+			goto A;
+		}
+	}
+
+
 	cout << "请输入密码，不超过20个字符" << endl;
 B:cin >> a.password;
 	if (strlen(a.password) > 20)
@@ -93,8 +106,16 @@ User* main_::sign_in()
 			cin >> n;
 			if (strcmp(n, a->password) == 0)
 			{
-				cout << "登录成功" << endl;
-				return a;
+				if (a->userstate == 0)
+				{
+					cout << "您的账户被封禁" << endl;
+					return NULL;
+				}
+				else
+				{
+					cout << "登录成功" << endl;
+					return a;
+				}
 			}
 			else
 			{
@@ -109,7 +130,7 @@ User* main_::sign_in()
 			return NULL;
 		}
 	}
-	
+	return NULL;
 
 
 }
