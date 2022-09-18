@@ -21,42 +21,47 @@ void information::self_info(User &a)
 }
 void information::modify_info(User &aa)
 {
+	char k[100];
+	char username[100], phonenumber[100], address[100];
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "r");
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(User);
 	fseek(fp, 0, SEEK_SET);
 	cout << "请输入修改的属性（1.用户名 2.联系方式 3.地址）" << endl;
 	int n;
-	D:cin >> n;
+	D:cin >> n; cin.getline(k, 100);
 	if (n == 1)
 	{
 		cout << "请输入修改后的用户名(不超过10个字符）" << endl;
-		A:cin >> aa.username;
-		if (strlen(aa.username) > 10)
+	A:cin.getline(username, 100);
+		if (strlen(username) > 10)
 		{
 			cout << "用户名超过10个字符，请重新输入" << endl;
 			goto A;
 		}
+		strcpy(aa.username, username);
 	}
 	else if (n == 2)
 	{
 		cout << "请输入修改后的联系方式(不超过20个字符）" << endl;
-	B:cin >> aa.phonenumber;
-		if (strlen(aa.phonenumber) > 20)
+	B:cin.getline(phonenumber,100);
+		if (strlen(phonenumber) > 20)
 		{
 			cout << "联系方式超过20个字符，请重新输入" << endl;
 			goto B;
 		}
+		strcpy(aa.phonenumber, phonenumber);
 	}
 	else if (n == 3)
 	{
 		cout << "请输入修改后的地址(不超过40个字符）" << endl;
-	C:cin >> aa.address;
-		if (strlen(aa.address) > 40)
+	C:cin.getline(address,100);
+		if (strlen(address) > 40)
 		{
 			cout << "地址超过40个字符，请重新输入" << endl;
 			goto C;
 		}
+		strcpy(aa.address, address);
 	}
 	else
 	{
@@ -71,6 +76,7 @@ void information::modify_info(User &aa)
 		if (strcmp(a[i].username, aa.username) == 0)
 		{
 			cout << "此用户名已有人使用，请重新输入" << endl;
+			delete[]a;
 			goto A;
 		}
 	}

@@ -12,4 +12,4 @@ public:
 	void all_order(User &a);
 	void commodity_information();
 
-};;
+};

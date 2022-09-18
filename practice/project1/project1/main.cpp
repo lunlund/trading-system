@@ -4,6 +4,7 @@
 #include<string>
 int main()
 {
+	char k[100];
 	while (1)
 	{
 		main_ a;
@@ -11,9 +12,10 @@ int main()
 		int m;
 		cout << "请输入操作" << endl;
 		cin >> m;
+		cin.getline(k, 100);
 		switch (m)
 		{
-		case 1:if (a.administrator() == 1)
+		case 1: if (a.administrator() == 1)
 		{
 			administrator_module();
 		}
@@ -21,7 +23,7 @@ int main()
 		{
 			cout << "密码错误，登录失败，返回主菜单" << endl;
 		}break;
-		case 2:if (a.sign_up() == 1)
+		case 2: if (a.sign_up() == 1)
 		{
 			cout << "注册成功" << endl;
 		}
@@ -39,7 +41,7 @@ int main()
 			{
 				//cout << "密码错误，登录失败，返回主菜单" << endl;
 			}break; }
-		case 4:return 0; break;
+		case 4: return 0; break;
 		default:cout << "输入错误" << endl; break;
 		}
 	}

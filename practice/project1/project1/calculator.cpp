@@ -8,7 +8,15 @@ void calculator()
 	char a[1000];
 	float b[26];
 	memset(b, 0, 26);
-	cin >> a;
+	M:cin.getline(a, 1000);
+	for (int i = 0; i <= strlen(a) - 1; i++)
+	{
+		if (a[i] == ' ')
+		{
+			cout << "输入中有空格，不合法，请重新输入" << endl;
+			goto M;
+		}
+	}
 	if (check(a) == 0)
 	{
 		return ;

@@ -33,8 +33,8 @@ void administrator::search_commodity()
 	FILE *fp=fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt","r");
 	cout << "请输入商品名称" << endl;
 	bool aa = 0;
-	char a[21];
-	cin >> a;
+	char a[100];
+	cin.getline(a,100);
 	Commodity b;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Commodity);
@@ -71,9 +71,9 @@ void administrator::delete_commodity()
 	int i;
 	fseek(fp, 0, SEEK_SET);
 	Commodity *a = new Commodity[m];
-	char b[5];
+	char b[100];
 	cout << "请输入要下架的商品ID" << endl;
-	cin >> b;
+	cin.getline(b, 100);
 	for (i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(Commodity), 1, fp);
@@ -186,9 +186,9 @@ void administrator::delete_user()
 	int i;
 	fseek(fp, 0, SEEK_SET);
 	User *a = new User[m];
-	char b[5];
+	char b[100];
 	cout << "请输入要封禁的用户ID" << endl;
-	cin >> b;
+	cin.getline(b, 100);
 	for (i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(User), 1, fp);

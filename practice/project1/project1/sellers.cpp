@@ -10,6 +10,8 @@ void sellers::menu()
 }
 void sellers::new_commodity(User &aa)
 {
+	char k[100];
+	char commodityname[100], description[1000];
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "a+");
 	Commodity a;
 	fseek(fp, 0, SEEK_END);
@@ -26,23 +28,25 @@ void sellers::new_commodity(User &aa)
 	}
 	cout << a.commodityID << endl;
 	cout << "请输入商品名称(不超过20个字符)" << endl;
-	A:cin >> a.commodityname;
-	if (strlen(a.commodityname) > 20)
+A:cin.getline(commodityname, 100);
+	if (strlen(commodityname) > 20)
 	{
 		cout << "商品名称超过20个字符，请重新输入" << endl;
 		goto A;
 	}
+	strcpy(a.commodityname,commodityname);
 	cout << "请输入商品价格（自动保存一位小数）" << endl;
 	cin >> a.price;
 	cout << "请输入商品数量" << endl;
-	cin >> a.number;
+	cin >> a.number; cin.getline(k, 100);
 	cout << "请输入商品描述(不超过200个字符）" << endl;
-	B:cin >> a.description;
-	if (strlen(a.description) > 200)
+B:cin.getline(description, 1000);
+	if (strlen(description) > 200)
 	{
 		cout << "超过200个字符，请重新输入" << endl;
 		goto B;
 	}
+	strcpy(a.description, description);
 	cout << "请确认发布的商品信息无误" << endl;
 	cout << "*****************************" << endl;
 	cout << "商品名称：" << a.commodityname << endl;
@@ -64,7 +68,6 @@ void sellers::new_commodity(User &aa)
 		strftime(tmp, sizeof(tmp), "%Y-%m-%d", localtime(&timep));
 		strcpy(a.addedDate, tmp);
 		fwrite(&a, sizeof(Commodity), 1, fp);
-		fclose(fp);
 	}
 	else if (mm == 'n')
 	{
@@ -74,7 +77,7 @@ void sellers::new_commodity(User &aa)
 	{
 		cout<<"输入错误请重新输入"<<endl;
 		goto C;
-	}
+	}fclose(fp);
 }
 void sellers::all_commodity(User &aa)
 {
@@ -102,11 +105,13 @@ void sellers::all_commodity(User &aa)
 }
 void sellers::modify_information(User &aa)
 {
+	char k[100];
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\Commodity.txt", "r");
-	char str[5];
+	char str[100];
+	char description[1000];
 	Commodity aaa;
 	cout << "请输入被修改商品的ID" << endl;
-	cin >> str;
+	cin.getline(str, 100);
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Commodity);
 	fseek(fp, 0, SEEK_SET);
@@ -114,11 +119,11 @@ void sellers::modify_information(User &aa)
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(Commodity), 1, fp);
-		if (strcmp(a[i].commodityID, str) == 0)
+		if (strcmp(a[i].commodityID, str) == 0&&strcmp(a[i].sellerID,aa.userID)==0)
 		{
 			cout << "请输入被修改商品的属性（1.价格 2.描述）" << endl;
 			int p;
-		A:cin >> p;
+		A:cin >> p; cin.getline(k, 100);
 			if (p == 1)
 			{
 				cout << "请输入被修改商品的价格" << endl;
@@ -127,12 +132,13 @@ void sellers::modify_information(User &aa)
 			else if (p == 2)
 			{
 				cout << "请输入被修改商品的描述(200个字符以内）" << endl;
-			B:cin >> aaa.description;
-				if (strlen(aaa.description) > 200)
+			B:cin.getline(description,1000);
+				if (strlen(description) > 200)
 				{
 					cout << "描述内容过多，字符超过200，请重新输入" << endl;
 					goto B;
 				}
+				strcpy(aaa.description, description);
 			}
 			else
 			{
@@ -197,9 +203,9 @@ void sellers::delete_commodity(User &aa)
 	int i;
 	fseek(fp, 0, SEEK_SET);
 	Commodity *a = new Commodity[m];
-	char b[5];
+	char b[100];
 	cout << "请输入要下架的商品ID" << endl;
-	cin >> b;
+	cin.getline(b, 100);
 	for (i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(Commodity), 1, fp);
