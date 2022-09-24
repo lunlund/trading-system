@@ -19,7 +19,7 @@ void administrator::all_commodity()
 	for (int i = 0;i<=m-1; i++)
 	{
 		fread(&a, sizeof(Commodity), 1, fp);
-		cout << a.commodityID << a.commodityname << a.price << a.addedDate << a.sellerID << a.number;
+		cout << a.commodityID << "   " << a.commodityname << "   " << a.price << "   " << a.addedDate << "   " << a.sellerID << "   " << a.number << "   ";
 		if (a.state == 1)
 			cout << "销售中" << endl;
 		else
@@ -145,9 +145,13 @@ void administrator::all_order()
 		{
 			cout << "已成交" << endl;
 		}
-		else
+		else if(a.state==0)
 		{
 			cout << "预支付" << endl;
+		}
+		else
+		{
+			cout << "交易失败" << endl;
 		}
 	}
 	cout << "*************************************************************************" << endl;

@@ -73,7 +73,7 @@ void information::modify_info(User &aa)
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(User), 1, fp);
-		if (strcmp(a[i].username, aa.username) == 0)
+		if (strcmp(a[i].username, aa.username) == 0&&strcmp(a[i].userID,aa.userID)!=0)
 		{
 			cout << "此用户名已有人使用，请重新输入" << endl;
 			delete[]a;
@@ -125,4 +125,5 @@ void information::recharge(User &aa)
 	}
 	fclose(fp1);
 	delete[]a;
+	cout << "充值成功" << endl;
 }

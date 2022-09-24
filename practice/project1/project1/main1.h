@@ -9,6 +9,7 @@ public:
 	void menu();
 	bool sign_up();
 	User* sign_in();
+	void check();
 	//User *aa=NULL;
 
 };

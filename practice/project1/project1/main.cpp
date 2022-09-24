@@ -5,9 +5,10 @@
 int main()
 {
 	char k[100];
+	main_ a;
+	a.check();
 	while (1)
 	{
-		main_ a;
 		a.menu();
 		int m;
 		cout << "请输入操作" << endl;

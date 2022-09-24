@@ -30,7 +30,8 @@ void buyers::all_commodity()
 }
 void buyers::buy_commodity(User &a)
 {
-	int num,price;
+	int num;
+	double price;
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
 	cout << "请输入商品ID" << endl;
 	char str[100];
@@ -152,9 +153,13 @@ void buyers::all_order(User &b)
 			{
 				cout << "已成交" << endl;
 			}
-			else
+			else if(a.state==0)
 			{
 				cout << "预支付" << endl;
+			}
+			else
+			{
+				cout << "交易失败" << endl;
 			}
 		}
 	}
