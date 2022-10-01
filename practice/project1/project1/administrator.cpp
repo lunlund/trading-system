@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"administrator.h"
+#include<string>
 void administrator::menu()
 {
 	cout << "=============================================================================================" << endl;
@@ -89,18 +90,19 @@ void administrator::delete_commodity()
 				cout << "已下架" << endl;
 			cout << "**********************************************************" << endl;
 		A:cout << "请选择（y/n)：";
-			char j;
-			cin >> j;
-			if (j == 'y')
+			string j;
+			//cin >> j;
+			getline(cin,j);
+			if (j == "y")
 			{
 				a[i].state = 0;
 				cout << "下架成功" << endl;
 			}
-			if (j == 'n')
+			if (j == "n")
 			{
 				cout << "取消下架" << endl;
 			}
-			if (j != 'n'&&j != 'y')
+			if (j != "n"&&j != "y")
 			{
 				cout << "输入错误，请重新输入" << endl;
 				goto A;
@@ -204,18 +206,18 @@ void administrator::delete_user()
 			cout << a[i].userID << a[i].username << a[i].phonenumber << a[i].address << a[i].balance << endl;
 			cout << "**********************************************************" << endl;
 		A:cout << "请选择（y/n)：";
-			char j;
-			cin >> j;
-			if (j == 'y')
+			string j;
+			getline(cin, j);
+			if (j == "y")
 			{
 				a[i].userstate = 0;
 				cout << "封禁成功" << endl;
 			}
-			if (j == 'n')
+			if (j == "n")
 			{
 				cout << "封禁失败" << endl;
 			}
-			if (j != 'n'&&j != 'y')
+			if (j != "n"&&j != "y")
 			{
 				cout << "输入错误，请重新输入" << endl;
 				goto A;

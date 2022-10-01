@@ -29,7 +29,13 @@ void information::modify_info(User &aa)
 	fseek(fp, 0, SEEK_SET);
 	cout << "请输入修改的属性（1.用户名 2.联系方式 3.地址）" << endl;
 	int n;
-	D:cin >> n; cin.getline(k, 100);
+D://cin >> n; 
+	while (scanf_s("%d", &n) == 0)
+	{
+		while (getchar() != '\n');
+		cout << "输入错误,请重新输入" << endl;
+	}
+	cin.getline(k, 100);
 	if (n == 1)
 	{
 		cout << "请输入修改后的用户名(不超过10个字符）" << endl;
@@ -106,7 +112,12 @@ void information::recharge(User &aa)
 	fseek(fp, 0, SEEK_SET);
 	cout << "请输入充值金额" << endl;
 	double aaa;
-	cin >> aaa;
+	//cin >> aaa;
+	while (scanf_s("%lf", &aaa) == 0)
+	{
+		while (getchar() != '\n');
+		cout << "输入错误,请重新输入" << endl;
+	}
 	aa.balance += aaa;
 	User *a = new User[m];
 	for (int i = 0; i <= m - 1; i++)

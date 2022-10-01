@@ -175,6 +175,7 @@
     <ClInclude Include="sellers.h" />
     <ClInclude Include="users.h" />
     <ClInclude Include="user_module.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

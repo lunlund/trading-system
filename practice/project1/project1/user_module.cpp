@@ -8,7 +8,12 @@ A:
 	b.menu();
 	int m;
 	cout << "请输入操作" << endl;
-	cin >> m;
+	//cin >> m;
+	while (scanf_s("%d", &m) == 0)
+	{
+		while (getchar() != '\n');
+		cout << "输入错误,请重新输入" << endl;
+	}
 	cin.getline(k, 100);
 	switch (m)
 	{

@@ -36,9 +36,20 @@ A:cin.getline(commodityname, 100);
 	}
 	strcpy(a.commodityname,commodityname);
 	cout << "请输入商品价格（自动保存一位小数）" << endl;
-	cin >> a.price;
+	//cin >> a.price;
+	while (scanf_s("%lf", &a.price) == 0)
+	{
+		while (getchar() != '\n');
+		cout << "输入错误,请重新输入" << endl;
+	}
 	cout << "请输入商品数量" << endl;
-	cin >> a.number; cin.getline(k, 100);
+	//cin >> a.number; 
+	while (scanf_s("%d", &a.number) == 0)
+	{
+		while (getchar() != '\n');
+		cout << "输入错误,请重新输入" << endl;
+	}
+	cin.getline(k, 100);
 	cout << "请输入商品描述(不超过200个字符）" << endl;
 B:cin.getline(description, 1000);
 	if (strlen(description) > 200)
@@ -55,9 +66,10 @@ B:cin.getline(description, 1000);
 	cout << "商品描述：" << a.description << endl;
 	cout << "*****************************" << endl;
 	cout << "请确认要发布商品吗？（y/n）";
-		char mm;
-	C:cin >> mm;
-	if (mm == 'y')
+		string mm;
+	C://cin >> mm;
+		getline(cin, mm);
+	if (mm == "y")
 	{
 		cout << "发布商品成功" << endl;
 		a.state = 1;
@@ -69,7 +81,7 @@ B:cin.getline(description, 1000);
 		strcpy(a.addedDate, tmp);
 		fwrite(&a, sizeof(Commodity), 1, fp);
 	}
-	else if (mm == 'n')
+	else if (mm == "n")
 	{
 		cout << "发布商品失败" << endl;
 	}
@@ -106,7 +118,7 @@ void sellers::all_commodity(User &aa)
 void sellers::modify_information(User &aa)
 {
 	char k[100];
-	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\Commodity.txt", "r");
+	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
 	char str[100];
 	char description[1000];
 	Commodity aaa;
@@ -123,11 +135,22 @@ void sellers::modify_information(User &aa)
 		{
 			cout << "请输入被修改商品的属性（1.价格 2.描述）" << endl;
 			int p;
-		A:cin >> p; cin.getline(k, 100);
+		A://cin >> p; 
+			while (scanf_s("%d", &p) == 0)
+			{
+				while (getchar() != '\n');
+				cout << "输入错误,请重新输入" << endl;
+			}
+			cin.getline(k, 100);
 			if (p == 1)
 			{
 				cout << "请输入被修改商品的价格" << endl;
-				cin >> aaa.price;
+				//cin >> aaa.price;
+				while (scanf_s("%lf", &aaa.price) == 0)
+				{
+					while (getchar() != '\n');
+					cout << "输入错误,请重新输入" << endl;
+				}
 			}
 			else if (p == 2)
 			{
@@ -171,7 +194,7 @@ void sellers::modify_information(User &aa)
 		}
 	}
 	fclose(fp);
-	FILE *fp1 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\Commodity.txt", "w");
+	FILE *fp1 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "w");
 	char q;
 C:cin >> q;
 	if (q == 'y')
@@ -221,18 +244,18 @@ void sellers::delete_commodity(User &aa)
 				cout << "已下架" << endl;
 			cout << "**********************************************************" << endl;
 		A:cout << "请选择（y/n)：";
-			char j;
-			cin >> j;
-			if (j == 'y')
+			string j;
+			getline(cin, j);
+			if (j == "y")
 			{
 				a[i].state = 0;
 				cout << "下架成功" << endl;
 			}
-			if (j == 'n')
+			if (j == "n")
 			{
 				cout << "取消下架" << endl;
 			}
-			if (j != 'n'&&j != 'y')
+			if (j != "n"&&j != "y")
 			{
 				cout << "输入错误，请重新输入" << endl;
 				goto A;
@@ -277,9 +300,13 @@ void sellers::all_order(User &aa)
 			{
 				cout << "已成交" << endl;
 			}
-			else
+			else if(a.state==0)
 			{
 				cout << "预支付" << endl;
+			}
+			else
+			{
+				cout << "交易失败" << endl;
 			}
 		}
 	}

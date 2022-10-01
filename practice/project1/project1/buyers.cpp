@@ -46,14 +46,24 @@ void buyers::buy_commodity(User &a)
 		if (strcmp(b.commodityID, str) == 0&&b.state==1)
 		{
 			cout << "请输入数量（剩余" <<b.number<<"个）"<< endl;
-			E:cin >> num;
+		E://cin >> num;
+			while (scanf_s("%d", &num) == 0)
+			{
+				while (getchar() != '\n');
+				cout << "输入错误,请重新输入" << endl;
+			}
 			if (num > b.number)
 			{
 				cout << "购买数量过多，请重新输入" << endl;
 				goto E;
 			}
 			cout << "请输入您的竞拍价(底价" <<b.price<<"元）" <<endl;
-			F:cin >> price;
+		F://cin >> price;
+			while (scanf_s("%lf", &price) == 0)
+			{
+				while (getchar() != '\n');
+				cout << "输入错误,请重新输入" << endl;
+			}
 			if (price < b.price)
 			{
 				cout << "竞拍价低于底价，请重新输入" << endl;

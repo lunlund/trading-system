@@ -3,6 +3,7 @@
 #include<cstring>
 #include<time.h>
 #include<Windows.h>
+#include"vector.h"
 bool main_::administrator()
 {
 	char ab[100];
@@ -85,11 +86,16 @@ D:cin.getline(address, 100);
 	}
 	strcpy(a.address, address);
 	cout << "请输入充值钱数（系统自动保留一位小数）" << endl;
-	cin >> a.balance;
+	//cin >> a.balance;
+	while (scanf_s("%lf", &a.balance) == 0)
+	{
+		while (getchar() != '\n');
+		cout << "输入错误,请重新输入" << endl;
+	}
 	a.userstate = 1;
 	fwrite(&a, sizeof(User), 1, fp);
-	fclose(fp);
-	return 1;
+fclose(fp);
+return 1;
 }
 User* main_::sign_in()
 {
@@ -99,11 +105,11 @@ User* main_::sign_in()
 	cout << "请输入用户名" << endl;
 	cin.getline(m, 100);
 	User *a = new User;
-	fseek(fp,0,SEEK_END);
+	fseek(fp, 0, SEEK_END);
 	int p = ftell(fp) / sizeof(User);
-	fseek(fp, 0,SEEK_SET);
+	fseek(fp, 0, SEEK_SET);
 	//User *b = &a;
-	for (int i = 0;i<=p-1; i++)
+	for (int i = 0; i <= p - 1; i++)
 	{
 		fread(a, sizeof(User), 1, fp);
 		if (strcmp(a->username, m) == 0)
@@ -145,161 +151,158 @@ void main_::check()
 	//寻找同一商品的state预支付订单，是否到时间，放在数组中，排序，与此商品数量进行比较，两种情况，选出报价高的前数量者，改变订单状态
 	//改变商品数量，-购买人数，改变商品状态
 	//改变购买者的钱包数量金额
-	FILE *fp1 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "r");
-	FILE *fp2 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "r");
-	fseek(fp1, 0, SEEK_END);
-	int mm = ftell(fp1) / sizeof(User);
-	fseek(fp1, 0, SEEK_SET);//将user，order全部取出
-	User *u = new User[mm];
-	for (int i = 0; i <= mm - 1; i++)
+	FILE *fpu = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "r");
+	FILE *fpo = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "r");
+	FILE *fpc = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
+	fseek(fpu, 0, SEEK_END);
+	int num_u = ftell(fpu) / sizeof(User);
+	fseek(fpu, 0, SEEK_SET);
+	User *u = new User[num_u];
+	for (int i = 0; i <= num_u - 1; i++)
 	{
-		fread(&u[i], sizeof(User), 1, fp1);
+		fread(&u[i], sizeof(User), 1, fpu);
 	}
-	fseek(fp2, 0, SEEK_END);
-	int mmm = ftell(fp2) / sizeof(Order);
-	fseek(fp2, 0, SEEK_SET);
-	Order *o = new Order[mmm];
-	for (int i = 0; i <= mmm - 1; i++)
+	fseek(fpo, 0, SEEK_END);
+	int num_o = ftell(fpo) / sizeof(Order);
+	fseek(fpo, 0, SEEK_SET);
+	Order *o = new Order[num_o];
+	for (int i = 0; i <= num_o - 1; i++)
 	{
-		fread(&o[i], sizeof(Order), 1, fp2);
+		fread(&o[i], sizeof(Order), 1, fpo);
 	}
+	fseek(fpc, 0, SEEK_END);
+	int num_c = ftell(fpc) / sizeof(Commodity);
+	fseek(fpc, 0, SEEK_SET);
+	Commodity *c = new Commodity[num_c];
+	for (int i = 0; i <= num_c - 1; i++)
+	{
+		fread(&c[i], sizeof(Commodity), 1, fpc);
+	}
+	fclose(fpo);
+	fclose(fpc);
+	fclose(fpu);
 	time_t timep;
 	time(&timep);
 	char tmp[11];
 	strftime(tmp, sizeof(tmp), "%Y-%m-%d", localtime(&timep));
-	//strcpy(a.addedDate, tmp);
-	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
-	fseek(fp, 0, SEEK_END);
-	int m = ftell(fp) / sizeof(Commodity);
-	fseek(fp, 0, SEEK_SET);
-	Commodity *c = new Commodity[m];
-	for (int i = 0; i <= m - 1; i++)
+	for (int i = 0; i <= num_c - 1; i++)//商品数量，订单状态，订单购买数量，用户余额(买家减少，卖家增多），商品状态
 	{
-		fread(&c[i], sizeof(Commodity), 1, fp);
-	}
-	fclose(fp);
-	fclose(fp1);
-	fclose(fp2);
-	for (int i = 0; i <= m - 1; i++)
-	{
-		Order *oo[1000];
-		int j = 0,sum=0;
-		if (c[i].state == 1 )//if (c[i].state == 1 && strcmp(c[i].addedDate, tmp) != 0)
+		if (c[i].state == 1)//找到在售商品,且过了一天  if (c[i].state == 1 && strcmp(tmp, c[i].addedDate) != 0)
 		{
-			for (int ii = 0; ii <= mmm - 1; ii++)
+			c[i].state = 0;
+			vector_<Order*> oo;
+			for (int j = 0; j <= num_o - 1; j++)//将c[i]的订单领出来，排序
 			{
-				if (strcmp(o[ii].commodityID, c[i].commodityID) == 0&&o[ii].state==0)
+				if ((strcmp(o[j].commodityID, c[i].commodityID) == 0) && (o[j].state == 0))
 				{
-					oo[j] = &o[ii];
-					j++;
-					sum += o[ii].number;
-				}
+					oo.push_back(&o[j]);
+                }
 			}
-			if (sum <= c[i].number)
-			{
-				c[i].number -= sum;
-				c[i].state = 0;
-				for (int ii = 0; ii <= mm - 1; ii++)
-				{
-					for (int jj = 0; jj <= j - 1; jj++)
-					{
-						oo[jj]->state = 1;
-						if (strcmp(oo[jj]->buyerID, u[ii].userID) == 0)
-						{
-							u[ii].balance -= oo[jj]->number*(oo[jj]->unitPrice);//mm user,mmm oreder,m commodity
-						}
-					}
-				}
-			}
+			if (oo.number == 0)
+				continue;
 			else
 			{
-				//c[i].number = 0;
-				//c[i].state = 0;
-				int max;
-				for (int jj = 0;jj<=j-1;jj++)
-				{
-					max = jj;
-					Order *l = oo[jj];
-					for (int p = jj + 1; p <= j - 1; p++)
-					{
-						if (oo[p]->unitPrice > l->unitPrice)
-						{
-							max = p;
-							l = oo[p];
-						}
-					}
-					l = oo[jj];
-					oo[jj] = oo[max];
-					oo[max] = l;
-				}
 				int sum = 0;
-				for (int p = 0; p <= j - 1; p++)
+				for (int j = 0; j <= oo.number - 1; j++)
 				{
-					oo[p]->state = 2;
+					sum += oo[j]->number;
 				}
-				for (int p = 0; p <= j - 1; p++)
+				if (sum > c[i].number)
 				{
-					sum += oo[p]->number;
-					oo[p]->state = 1;
-						
-					if (sum < c[i].number)
+					c[i].number = 0;
+					for (int j = 0; j < oo.number - 1; j++)//从小到大，冒泡排序
 					{
-						for (int ii = 0; ii <= mm - 1; mm++)
+						for (int p = 0; p < oo.number - 1 - j; p++)
 						{
-							if (strcmp(oo[p]->buyerID, u[ii].userID) == 0)
+							if (oo[p]->unitPrice > oo[p + 1]->unitPrice)
 							{
-								u[ii].balance -= oo[p]->number*(oo[p]->unitPrice);
-								break;
+								Order *a = oo[p + 1];
+								oo[p + 1] = oo[p];
+								oo[p] = a;
 							}
 						}
 					}
-					else if (sum == c[i].number)
+					int all = 0;
+					int jj = 0;
+					int stage = 0;
+					for (jj = oo.number-1;jj >=0; jj--)
 					{
-						for (int ii = 0; ii <= mm - 1; mm++)
+						all += oo[jj]->number;
+						if (all > sum)
 						{
-							if (strcmp(oo[p]->buyerID, u[ii].userID) == 0)
+							if (stage == 0)
 							{
-								u[ii].balance -= oo[p]->number*(oo[p]->unitPrice);
-								break;
+								oo[jj]->number = sum - (all - oo[jj]->number);
+								oo[jj]->state = 1;
+								stage = 1;
+							}
+							else
+							{
+								oo[jj]->state = 2;
+								continue;
 							}
 						}
-						break;
-					}
-					else
-					{
-						oo[p]->number = c[i].number - sum;
-						for (int ii = 0; ii <= mm - 1; mm++)
+						else if (all == sum)
 						{
-							if (strcmp(oo[p]->buyerID, u[ii].userID) == 0)
+							oo[jj]->state = 1;
+							stage = 1;
+						}
+						else
+						{
+							oo[jj]->state = 1;
+						}
+						for (int p = 0; p <= num_u - 1; p++)//改变余额
+						{
+							if (strcmp(oo[jj]->buyerID, u[p].userID) == 0)
 							{
-								u[ii].balance -= oo[p]->number*(oo[p]->unitPrice);
-								break;
+								u[p].balance -= oo[jj]->unitPrice*oo[jj]->number;
+							}
+							if (strcmp(oo[jj]->sellerID, u[p].userID) == 0)
+							{
+								u[p].balance += oo[jj]->unitPrice*oo[jj]->number;
 							}
 						}
-						break;
 					}
 				}
-				c[i].number = 0;
+				else//enough
+				{
+					c[i].number -= sum;
+					for (int j = 0; j <= oo.number - 1; j++)
+					{
+						oo[j]->state = 1;
+						for (int p = 0; p <= num_u - 1; p++)//改变余额
+						{
+							if (strcmp(oo[j]->buyerID, u[p].userID) == 0)
+							{
+								u[p].balance -= oo[j]->unitPrice*oo[j]->number;
+							}
+							if (strcmp(oo[j]->sellerID, u[p].userID) == 0)
+							{
+								u[p].balance += oo[j]->unitPrice*oo[j]->number;
+							}
+						}
+					}
+				}
 			}
-			c[i].state = 0;
+			oo.clear();
 		}
-	}//mm user, mmm oreder, m commodity
-	FILE *fp3 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "w");
-	FILE *fp4 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "w");
-	FILE *fp5 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "w");
-	for (int i = 0; i <= mm - 1; i++)
-	{
-		fwrite(&u[i], sizeof(User), 1, fp3);
 	}
-	for (int ii = 0; ii <= mmm - 1; mmm++)
+	FILE *fpu_ = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "w");
+	FILE *fpo_ = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "w");
+	FILE *fpc_ = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "w");
+	for (int i = 0; i <= num_o-1; i++)
 	{
-		fwrite(&o[ii], sizeof(Order), 1, fp4);
+		fwrite(&u[i], sizeof(User), 1, fpu_);
 	}
-	for (int iii = 0; iii <= m - 1; iii++)
+	for (int i = 0; i <= num_o-1; i++)
 	{
-		fwrite(&c[iii], sizeof(Commodity), 1, fp5);
+		fwrite(&o[i], sizeof(Order), 1, fpo_);
 	}
-	fclose(fp3);
-	fclose(fp4);
-	fclose(fp5);
+	for (int i = 0; i <= num_c - 1; i++)
+	{
+		fwrite(&c[i], sizeof(Commodity), 1, fpc_);
+	}
+	fclose(fpu_);
+	fclose(fpo_);
+	fclose(fpc_);
 }
