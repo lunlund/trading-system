@@ -78,7 +78,10 @@ void administrator::delete_commodity()
 	for (i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(Commodity), 1, fp);
-		if (strcmp(a[i].commodityID, b) == 0&&a[i].state==1)
+	}
+	for (i = 0; i <= m - 1; i++)
+	{
+		if (strcmp(a[i].commodityID, b) == 0 && a[i].state == 1)
 		{
 			cout << "确定要下架该商品吗" << endl;
 			cout << "**********************************************************" << endl;
@@ -92,7 +95,7 @@ void administrator::delete_commodity()
 		A:cout << "请选择（y/n)：";
 			string j;
 			//cin >> j;
-			getline(cin,j);
+			getline(cin, j);
 			if (j == "y")
 			{
 				a[i].state = 0;
@@ -198,6 +201,9 @@ void administrator::delete_user()
 	for (i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(User), 1, fp);
+	}
+	for (i = 0; i <= m - 1; i++)
+	{
 		if (strcmp(a[i].userID, b) == 0 && a[i].userstate == 1)
 		{
 			cout << "确定要封禁该用户吗" << endl;

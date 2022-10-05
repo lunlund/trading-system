@@ -7,7 +7,6 @@ int main()
 	char k[100];
 	main_ a;
 	a.check();
-	
 	while (1)
 	{
 		a.menu();

@@ -161,6 +161,7 @@ void main_::check()
 	for (int i = 0; i <= num_u - 1; i++)
 	{
 		fread(&u[i], sizeof(User), 1, fpu);
+		//cout << u[i].username << endl;
 	}
 	fseek(fpo, 0, SEEK_END);
 	int num_o = ftell(fpo) / sizeof(Order);
@@ -287,12 +288,14 @@ void main_::check()
 			oo.clear();
 		}
 	}
+	//cout << num_u << endl;
 	FILE *fpu_ = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "w");
 	FILE *fpo_ = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "w");
 	FILE *fpc_ = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "w");
-	for (int i = 0; i <= num_o-1; i++)
+	for (int i = 0; i <= num_u-1; i++)
 	{
 		fwrite(&u[i], sizeof(User), 1, fpu_);
+		//cout << u[i].userID << endl;
 	}
 	for (int i = 0; i <= num_o-1; i++)
 	{
