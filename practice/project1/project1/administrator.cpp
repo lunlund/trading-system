@@ -145,7 +145,7 @@ void administrator::all_order()
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a, sizeof(Order), 1, fp);
-		cout << a.orderID << a.commodityID << a.unitPrice << a.number << a.date << a.sellerID << a.buyerID;
+		cout << a.orderID << a.commodityID << a.unitPrice <<" "<< a.number <<" "<< a.date << a.sellerID << a.buyerID;
 		if (a.state == 1)
 		{
 			cout << "ÒÑ³É½»" << endl;

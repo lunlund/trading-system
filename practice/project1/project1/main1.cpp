@@ -210,7 +210,7 @@ void main_::check()
 				}
 				if (sum > c[i].number)
 				{
-					c[i].number = 0;
+					//c[i].number = 0;
 					for (int j = 0; j < oo.number - 1; j++)//从小到大，冒泡排序
 					{
 						for (int p = 0; p < oo.number - 1 - j; p++)
@@ -229,11 +229,11 @@ void main_::check()
 					for (jj = oo.number-1;jj >=0; jj--)
 					{
 						all += oo[jj]->number;
-						if (all > sum)
+						if (all > c[i].number)
 						{
 							if (stage == 0)
 							{
-								oo[jj]->number = sum - (all - oo[jj]->number);
+								oo[jj]->number = c[i].number - (all - oo[jj]->number);
 								oo[jj]->state = 1;
 								stage = 1;
 							}
@@ -243,7 +243,7 @@ void main_::check()
 								continue;
 							}
 						}
-						else if (all == sum)
+						else if (all == c[i].number)
 						{
 							oo[jj]->state = 1;
 							stage = 1;
@@ -264,6 +264,7 @@ void main_::check()
 							}
 						}
 					}
+					c[i].number = 0;
 				}
 				else//enough
 				{
