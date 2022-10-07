@@ -23,6 +23,7 @@ int main()
 		{
 		case 1: if (a.administrator() == 1)
 		{
+			system("cls");
 			administrator_module();
 		}
 			   else
@@ -41,6 +42,7 @@ int main()
 			User *aa = a.sign_in();
 			if (aa != NULL)
 			{
+				system("cls");
 				user_module(*aa);
 			}
 			else

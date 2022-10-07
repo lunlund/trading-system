@@ -29,7 +29,7 @@ A:
 	case 3: b.search_commodity(); break;
 	case 4: b.all_order(a); break;
 	case 5: b.commodity_information(); break;
-	case 6: return; break;
+	case 6: system("cls"); return; break;
 	case 7: calculator(); break;
 	default:cout << "ÊäÈë´íÎó" << endl;
 	}
@@ -59,7 +59,7 @@ A:
 	case 3: b.modify_information(a); break;
 	case 4: b.delete_commodity(a); break;
 	case 5: b.all_order(a); break;
-	case 6: return; break;
+	case 6: system("cls"); return; break;
 	case 7: calculator(); break;
 	default:cout << "ÊäÈë´íÎó" << endl;
 	}
@@ -85,7 +85,7 @@ A:char k[100];
 	case 1: b.self_info(a); break;
 	case 2: b.modify_info(a); break;
 	case 3: b.recharge(a); break;
-	case 4: return; break;
+	case 4: system("cls"); return; break;
 	default:cout << "ÊäÈë´íÎó" << endl; break;
 	}
 	goto A;

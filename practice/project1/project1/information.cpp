@@ -74,17 +74,21 @@ D://cin >> n;
 		cout << "输入错误，请重新输入" << endl;
 		goto D;
 	}
-	
+	User aba;
+	for (int i = 0; i <= m - 1; i++)
+	{
+		fread(&aba, sizeof(User), 1, fp);
+		if (strcmp(aba.username, aa.username) == 0 && strcmp(aba.userID, aa.userID) != 0)
+		{
+			cout << "此用户名已有人使用，请重新输入" << endl;
+			goto A;
+		}
+	}
+	fseek(fp, 0, SEEK_SET);
 	User *a = new User[m];
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(User), 1, fp);
-		if (strcmp(a[i].username, aa.username) == 0&&strcmp(a[i].userID,aa.userID)!=0)
-		{
-			cout << "此用户名已有人使用，请重新输入" << endl;
-			delete[]a;
-			goto A;
-		}
 	}
 	for (int i = 0; i <= m - 1; i++)
 	{

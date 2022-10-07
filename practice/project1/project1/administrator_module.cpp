@@ -24,7 +24,7 @@ A:
 	case 4: a.all_order(); break;
 	case 5: a.all_user(); break;
 	case 6: a.delete_user(); break;
-	case 7: return; break;
+	case 7: system("cls"); return; break;
 	case 8: calculator(); break;
 	default:cout << "ÊäÈë´íÎó" << endl;
 	}

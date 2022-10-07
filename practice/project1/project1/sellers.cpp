@@ -131,7 +131,10 @@ void sellers::modify_information(User &aa)
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(Commodity), 1, fp);
-		if (strcmp(a[i].commodityID, str) == 0&&strcmp(a[i].sellerID,aa.userID)==0)
+	}
+	for (int i = 0; i <= m - 1; i++)
+	{
+		if (strcmp(a[i].commodityID, str) == 0 && strcmp(a[i].sellerID, aa.userID) == 0)
 		{
 			cout << "请输入被修改商品的属性（1.价格 2.描述）" << endl;
 			int p;
@@ -155,7 +158,7 @@ void sellers::modify_information(User &aa)
 			else if (p == 2)
 			{
 				cout << "请输入被修改商品的描述(200个字符以内）" << endl;
-			B:cin.getline(description,1000);
+			B:cin.getline(description, 1000);
 				if (strlen(description) > 200)
 				{
 					cout << "描述内容过多，字符超过200，请重新输入" << endl;
@@ -179,16 +182,16 @@ void sellers::modify_information(User &aa)
 			cout << "请确认修改的商品信息无误" << endl;
 			cout << "*****************************" << endl;
 			cout << "商品ID:" << str << endl;
-			cout << "商品名称:"<<a[i].commodityname<<endl;
-			cout << "商品价格:"<<a[i].price<<endl;
-			cout << "商品描述:"<<a[i].description<<endl;
+			cout << "商品名称:" << a[i].commodityname << endl;
+			cout << "商品价格:" << a[i].price << endl;
+			cout << "商品描述:" << a[i].description << endl;
 			cout << "******************************" << endl;
 			cout << "确认修改？（y/n)" << endl;
 			break;
 		}
 		if (i == m - 1)
 		{
-			cout << "没有此商品"<<endl;
+			cout << "没有此商品" << endl;
 			delete[]a;
 			return;
 		}
@@ -232,7 +235,10 @@ void sellers::delete_commodity(User &aa)
 	for (i = 0; i <= m - 1; i++)
 	{
 		fread(&a[i], sizeof(Commodity), 1, fp);
-		if (strcmp(a[i].commodityID, b) == 0 && a[i].state == 1&&strcmp(a[i].commodityID,aa.userID)==0)
+	}
+	for (i = 0; i <= m - 1; i++)
+	{
+		if (strcmp(a[i].commodityID, b) == 0 && a[i].state == 1 && strcmp(a[i].commodityID, aa.userID) == 0)
 		{
 			cout << "确定要下架该商品吗" << endl;
 			cout << "**********************************************************" << endl;
