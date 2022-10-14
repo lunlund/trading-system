@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"sellers.h"
+#include"output.h"
 #include<Windows.h>
 #include<time.h>
 void sellers::menu()
@@ -95,7 +96,8 @@ void sellers::all_commodity(User &aa)
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
 	cout << "********************************************************************" << endl;
-	cout << "商品ID   名称   价格   上架时间   数量   商品状态" << endl;
+	//cout << "商品ID   名称   价格   上架时间   数量   商品状态" << endl;
+	cout << "商品ID 名称                 价格   上架时间   数量   商品状态" << endl;
 	Commodity a;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Commodity);
@@ -105,7 +107,16 @@ void sellers::all_commodity(User &aa)
 		fread(&a, sizeof(Commodity), 1, fp);
 		if (strcmp(a.sellerID,aa.userID)==0)
 		{
-			cout << a.commodityID << a.commodityname << a.price << a.addedDate  << a.number;
+			/*cout << a.commodityID << a.commodityname << a.price << a.addedDate  << a.number;
+			if (a.state == 1)
+				cout << "销售中" << endl;
+			else
+				cout << "已下架" << endl;*/
+			f(a.commodityID, 5);
+			f(a.commodityname, 21);
+			cout << a.price << "   ";
+			f(a.addedDate, 11);
+			cout << a.number << "     ";
 			if (a.state == 1)
 				cout << "销售中" << endl;
 			else
@@ -238,12 +249,23 @@ void sellers::delete_commodity(User &aa)
 	}
 	for (i = 0; i <= m - 1; i++)
 	{
-		if (strcmp(a[i].commodityID, b) == 0 && a[i].state == 1 && strcmp(a[i].commodityID, aa.userID) == 0)
+		if (strcmp(a[i].commodityID, b) == 0 && a[i].state == 1 && strcmp(a[i].sellerID, aa.userID) == 0)
 		{
 			cout << "确定要下架该商品吗" << endl;
 			cout << "**********************************************************" << endl;
-			cout << "商品ID   名称   价格   上架时间   卖家ID  数量   商品状态" << endl;
-			cout << a[i].commodityID << a[i].commodityname << a[i].price << a[i].addedDate << a[i].sellerID << a[i].number;
+			//cout << "商品ID   名称   价格   上架时间   卖家ID  数量   商品状态" << endl;
+			cout << "商品ID 名称                 价格   上架时间   卖家ID 数量   商品状态" << endl;
+			/*cout << a[i].commodityID << a[i].commodityname << a[i].price << a[i].addedDate << a[i].sellerID << a[i].number;
+			if (a[i].state == 1)
+				cout << "销售中" << endl;
+			else
+				cout << "已下架" << endl;*/
+			f(a[i].commodityID, 5);
+			f(a[i].commodityname, 21);
+			cout << a[i].price << "   ";
+			f(a[i].addedDate, 11);
+			f(a[i].sellerID, 5);
+			cout << a[i].number << "     ";
 			if (a[i].state == 1)
 				cout << "销售中" << endl;
 			else
@@ -291,7 +313,8 @@ void sellers::all_order(User &aa)
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "r");
 	cout << "************************************************************************" << endl;
-	cout << "订单ID   商品ID   交易单价   数量   交易时间  买家ID  订单状态" << endl;
+	//cout << "订单ID   商品ID   交易单价   数量   交易时间  买家ID  订单状态" << endl;
+	cout << "订单ID 商品ID 交易单价  数量  交易时间  买家ID 订单状态" << endl;
 	Order a;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Order);
@@ -301,12 +324,31 @@ void sellers::all_order(User &aa)
 		fread(&a, sizeof(Order), 1, fp);
 		if (strcmp(aa.userID,a.sellerID)==0)
 		{
-			cout << a.orderID << a.commodityID << a.unitPrice << a.number << a.date << a.buyerID;
+			/*cout << a.orderID << a.commodityID << a.unitPrice << a.number << a.date << a.buyerID;
 			if (a.state == 1)
 			{
 				cout << "已成交" << endl;
 			}
 			else if(a.state==0)
+			{
+				cout << "预支付" << endl;
+			}
+			else
+			{
+				cout << "交易失败" << endl;
+			}*/
+			f(a.orderID, 5); cout << " ";
+			f(a.commodityID, 5); cout << "  ";
+			cout << a.unitPrice << "      ";
+			cout << a.number << "    ";
+			f(a.date, 11);
+			//f(a.sellerID, 5);
+			f(a.buyerID, 5);
+			if (a.state == 1)
+			{
+				cout << "已成交" << endl;
+			}
+			else if (a.state == 0)
 			{
 				cout << "预支付" << endl;
 			}

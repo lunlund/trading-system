@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"administrator.h"
+#include"output.h"
 #include<string>
 void administrator::menu()
 {
@@ -12,15 +13,20 @@ void administrator::all_commodity()
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
 	cout << "********************************************************************" << endl;
-	cout << "商品ID   名称   价格   上架时间   卖家ID  数量   商品状态" << endl;
+	cout << "商品ID 名称                 价格   上架时间   卖家ID 数量   商品状态" << endl;
 	Commodity a;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Commodity);
 	fseek(fp, 0, SEEK_SET);
 	for (int i = 0;i<=m-1; i++)
 	{
-		fread(&a, sizeof(Commodity), 1, fp);
-		cout << a.commodityID << "   " << a.commodityname << "   " << a.price << "   " << a.addedDate << "   " << a.sellerID << "   " << a.number << "   ";
+		fread(&a, sizeof(Commodity), 1, fp); 
+		f(a.commodityID, 5);
+		f(a.commodityname, 21);
+		cout << a.price << "   ";
+		f(a.addedDate, 11);
+		f(a.sellerID, 5);
+		cout<< a.number << "     ";
 		if (a.state == 1)
 			cout << "销售中" << endl;
 		else
@@ -41,14 +47,20 @@ void administrator::search_commodity()
 	int m = ftell(fp) / sizeof(Commodity);
 	fseek(fp, 0, SEEK_SET);
 	cout << "**********************************************************" << endl;
-	cout << "商品ID   名称   价格   上架时间   卖家ID  数量   商品状态" << endl;
+	cout << "商品ID 名称                 价格   上架时间   卖家ID 数量   商品状态" << endl;
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&b, sizeof(Commodity), 1, fp);
 		if (strcmp(a, b.commodityname) == 0)
 		{
 			aa = 1;
-			cout << b.commodityID << b.commodityname << b.price << b.addedDate << b.sellerID << b.number;
+			//cout << b.commodityID << b.commodityname << b.price << b.addedDate << b.sellerID << b.number;
+			f(b.commodityID, 5);
+			f(b.commodityname, 21);
+			cout << b.price << "   ";
+			f(b.addedDate, 11);
+			f(b.sellerID, 5);
+			cout << b.number << "     ";
 			if (b.state == 1)
 				cout << "销售中" << endl;
 			else
@@ -85,8 +97,14 @@ void administrator::delete_commodity()
 		{
 			cout << "确定要下架该商品吗" << endl;
 			cout << "**********************************************************" << endl;
-			cout << "商品ID   名称   价格   上架时间   卖家ID  数量   商品状态" << endl;
-			cout << a[i].commodityID << a[i].commodityname << a[i].price << a[i].addedDate << a[i].sellerID << a[i].number;
+			cout << "商品ID 名称                 价格   上架时间   卖家ID 数量   商品状态" << endl;
+			//cout << a[i].commodityID << a[i].commodityname << a[i].price << a[i].addedDate << a[i].sellerID << a[i].number;
+			f(a[i].commodityID, 5);
+			f(a[i].commodityname, 21);
+			cout << a[i].price << "   ";
+			f(a[i].addedDate, 11);
+			f(a[i].sellerID, 5);
+			cout << a[i].number << "     ";
 			if (a[i].state == 1)
 				cout << "销售中" << endl;
 			else
@@ -137,7 +155,7 @@ void administrator::all_order()
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "r");
 	cout << "************************************************************************" << endl;
-	cout << "订单ID   商品ID   交易单价   数量   交易时间  卖家ID   买家ID  订单状态" << endl;
+	cout << "订单ID 商品ID 交易单价  数量  交易时间  卖家ID 买家ID 订单状态" << endl;
 	Order a;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Order);
@@ -145,7 +163,14 @@ void administrator::all_order()
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a, sizeof(Order), 1, fp);
-		cout << a.orderID << a.commodityID << a.unitPrice <<" "<< a.number <<" "<< a.date << a.sellerID << a.buyerID;
+		//cout << a.orderID << a.commodityID << a.unitPrice <<" "<< a.number <<" "<< a.date << a.sellerID << a.buyerID;
+		f(a.orderID, 5); cout << " ";
+		f(a.commodityID, 5); cout << "  ";
+		cout << a.unitPrice << "      ";
+		cout << a.number << "    ";
+		f(a.date, 11);
+		f(a.sellerID, 5);
+		f(a.buyerID, 5);
 		if (a.state == 1)
 		{
 			cout << "已成交" << endl;
@@ -166,7 +191,7 @@ void administrator::all_user()
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\user.txt", "r");
 	cout << "********************************************************************" << endl;
-	cout << "用户ID   用户名   联系方式   地址   钱包余额  用户状态" << endl;
+	cout << "用户ID 用户名     联系方式   地址                          钱包余额 用户状态" << endl;
 	User a;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(User);
@@ -174,7 +199,12 @@ void administrator::all_user()
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&a, sizeof(User), 1, fp);
-		cout << a.userID << a.username << a.phonenumber << a.address << a.balance;
+		//cout << a.userID << a.username << a.phonenumber << a.address << a.balance;
+		f(a.userID, 5); cout << " ";
+		f(a.username, 11);
+		f(a.phonenumber, 22);
+		f(a.address, 15);
+		cout << a.balance << "      ";
 		if (a.userstate == 1)
 		{
 			cout << "正常" << endl;
@@ -208,8 +238,14 @@ void administrator::delete_user()
 		{
 			cout << "确定要封禁该用户吗" << endl;
 			cout << "**********************************************************" << endl;
-			cout << "用户ID   用户名   联系方式  地址  钱包余额" << endl;
-			cout << a[i].userID << a[i].username << a[i].phonenumber << a[i].address << a[i].balance << endl;
+			cout << "用户ID 用户名     联系方式   地址                          钱包余额" << endl;
+			//cout << "用户ID   用户名   联系方式  地址  钱包余额" << endl;
+			//cout << a[i].userID << a[i].username << a[i].phonenumber << a[i].address << a[i].balance << endl;
+			f(a[i].userID, 5); cout << " ";
+			f(a[i].username, 11);
+			f(a[i].phonenumber, 22);
+			f(a[i].address, 15);
+			cout << a[i].balance << "      "<< endl;
 			cout << "**********************************************************" << endl;
 		A:cout << "请选择（y/n)：";
 			string j;

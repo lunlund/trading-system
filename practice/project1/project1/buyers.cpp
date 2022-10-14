@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"buyers.h"
+#include"output.h"
 #include<time.h>
 #include<Windows.h>
 void buyers::menu()
@@ -12,7 +13,8 @@ void buyers::all_commodity()
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\commodity.txt", "r");
 	cout << "************************************************************************" << endl;
-	cout << "商品ID      名称      价格             上架时间         卖家ID " << endl;
+	//cout << "商品ID      名称      价格             上架时间         卖家ID " << endl;
+	cout << "商品ID 名称                 价格   上架时间   卖家ID" << endl;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp)/sizeof(Commodity);
 	fseek(fp, 0, SEEK_SET);
@@ -22,7 +24,13 @@ void buyers::all_commodity()
 		fread(&a, sizeof(Commodity), 1, fp);
 		if (a.state == 1)
 		{
-			cout << a.commodityID << a.commodityname << a.price << a.addedDate << a.sellerID << endl;
+			//cout << a.commodityID << a.commodityname << a.price << a.addedDate << a.sellerID << endl;
+			f(a.commodityID, 5);
+			f(a.commodityname, 21);
+			cout << a.price << "   ";
+			f(a.addedDate, 11);
+			f(a.sellerID, 5);
+			cout << endl;
 		}		
 	}
 	cout << "**************************************************************************" << endl;
@@ -126,14 +134,21 @@ void buyers::search_commodity()
 	int m = ftell(fp) / sizeof(Commodity);
 	fseek(fp, 0, SEEK_SET);
 	cout << "****************************************" << endl;
-	cout << "商品ID   名称   价格   上架时间   卖家ID" << endl;
+	//cout << "商品ID   名称   价格   上架时间   卖家ID" << endl;
+	cout << "商品ID 名称                 价格   上架时间   卖家ID" << endl;
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&b, sizeof(Commodity), 1, fp);
 		if (strcmp(a, b.commodityname) == 0&&b.state==1)
 		{
 			aa = 1;
-			cout << b.commodityID << b.commodityname << b.price << b.addedDate << b.sellerID <<endl;
+			//cout << b.commodityID << b.commodityname << b.price << b.addedDate << b.sellerID <<endl;
+			f(b.commodityID, 5);
+			f(b.commodityname, 21);
+			cout << b.price << "   ";
+			f(b.addedDate, 11);
+			f(b.sellerID, 5);
+			cout << endl;
 		}
 	}
 	cout << "*****************************************" << endl;
@@ -148,7 +163,8 @@ void buyers::all_order(User &b)
 {
 	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "r");
 	cout << "****************************************************************" << endl;
-	cout << "订单ID   商品ID   交易单价   数量   交易时间  卖家ID   订单状态" << endl;
+	//cout << "订单ID   商品ID   交易单价   数量   交易时间  卖家ID   订单状态" << endl;
+	cout << "订单ID 商品ID 交易单价  数量  交易时间  卖家ID 买家ID 订单状态" << endl;
 	Order a;
 	fseek(fp, 0, SEEK_END);
 	int m = ftell(fp) / sizeof(Order);
@@ -158,12 +174,30 @@ void buyers::all_order(User &b)
 		fread(&a, sizeof(Order), 1, fp);
 		if (strcmp(a.buyerID, b.userID) == 0)
 		{
-			cout << a.orderID << a.commodityID << a.unitPrice << a.number << a.date << a.sellerID;
+			/*cout << a.orderID << a.commodityID << a.unitPrice << a.number << a.date << a.sellerID;
 			if (a.state == 1)
 			{
 				cout << "已成交" << endl;
 			}
 			else if(a.state==0)
+			{
+				cout << "预支付" << endl;
+			}
+			else
+			{
+				cout << "交易失败" << endl;}*/
+			f(a.orderID, 5); cout << " ";
+			f(a.commodityID, 5); cout << "  ";
+			cout << a.unitPrice << "      ";
+			cout << a.number << "    ";
+			f(a.date, 11);
+			f(a.sellerID, 5);
+			f(a.buyerID, 5);
+			if (a.state == 1)
+			{
+				cout << "已成交" << endl;
+			}
+			else if (a.state == 0)
 			{
 				cout << "预支付" << endl;
 			}

@@ -48,6 +48,9 @@
     <ClCompile Include="check.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="output.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="administrator.h">
@@ -84,6 +87,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="vector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="output.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

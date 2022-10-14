@@ -159,6 +159,7 @@
     <ClCompile Include="information.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main1.cpp" />
+    <ClCompile Include="output.cpp" />
     <ClCompile Include="sellers.cpp" />
     <ClCompile Include="users.cpp" />
     <ClCompile Include="user_module.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="data.h" />
     <ClInclude Include="information.h" />
     <ClInclude Include="main1.h" />
+    <ClInclude Include="output.h" />
     <ClInclude Include="sellers.h" />
     <ClInclude Include="users.h" />
     <ClInclude Include="user_module.h" />
