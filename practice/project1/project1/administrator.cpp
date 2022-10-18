@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"administrator.h"
 #include"output.h"
+#include"vague.h"
 #include<string>
 void administrator::menu()
 {
@@ -51,7 +52,7 @@ void administrator::search_commodity()
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&b, sizeof(Commodity), 1, fp);
-		if (strcmp(a, b.commodityname) == 0)
+		if (f(a, b.commodityname))
 		{
 			aa = 1;
 			//cout << b.commodityID << b.commodityname << b.price << b.addedDate << b.sellerID << b.number;

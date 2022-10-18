@@ -163,6 +163,7 @@
     <ClCompile Include="sellers.cpp" />
     <ClCompile Include="users.cpp" />
     <ClCompile Include="user_module.cpp" />
+    <ClCompile Include="vague.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="administrator.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="sellers.h" />
     <ClInclude Include="users.h" />
     <ClInclude Include="user_module.h" />
+    <ClInclude Include="vague.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

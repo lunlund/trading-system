@@ -51,6 +51,9 @@
     <ClCompile Include="output.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="vague.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="administrator.h">
@@ -90,6 +93,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="output.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vague.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

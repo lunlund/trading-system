@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"buyers.h"
 #include"output.h"
+#include"vague.h"
 #include<time.h>
 #include<Windows.h>
 void buyers::menu()
@@ -139,7 +140,7 @@ void buyers::search_commodity()
 	for (int i = 0; i <= m - 1; i++)
 	{
 		fread(&b, sizeof(Commodity), 1, fp);
-		if (strcmp(a, b.commodityname) == 0&&b.state==1)
+		if (f(a, b.commodityname) == 1&&b.state==1)
 		{
 			aa = 1;
 			//cout << b.commodityID << b.commodityname << b.price << b.addedDate << b.sellerID <<endl;
