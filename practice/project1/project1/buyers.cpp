@@ -6,9 +6,9 @@
 #include<Windows.h>
 void buyers::menu()
 {
-	cout << "================================================================================================" << endl;
-	cout << "1.查看商品列表 2.购买商品 3.搜索商品 4.查看历史订单 5.查看商品详细信息 6.返回用户主界面 7.计算器" << endl;
-	cout << "================================================================================================" << endl;
+	cout << "=============================================================================================================" << endl;
+	cout << "1.查看商品列表 2.购买商品 3.搜索商品 4.查看历史订单 5.查看商品详细信息 6.返回用户主界面 7.计算器 8.修改竞拍价" << endl;
+	cout << "=============================================================================================================" << endl;
 }
 void buyers::all_commodity()
 {
@@ -245,4 +245,52 @@ void buyers::commodity_information()
 	}
 	fclose(fp);
 	return;
+}
+void buyers::modify_price(User &aa)
+{
+	FILE *fp = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "r");
+	char str[100];
+	Order aaa;
+	cout << "请输入订单ID" << endl;
+	cin.getline(str, 100);
+	fseek(fp, 0, SEEK_END);
+	int m = ftell(fp) / sizeof(Order);
+	fseek(fp, 0, SEEK_SET);
+	Order *a = new Order[m];
+	for (int i = 0; i <= m - 1; i++)
+	{
+		fread(&a[i], sizeof(Order), 1, fp);
+	}
+	int i = 0;
+	for (; i <= m - 1; i++)
+	{
+		if (strcmp(a[i].orderID, str) == 0 && strcmp(a[i].buyerID, aa.userID) == 0 && a[i].state == 0)
+		{
+			cout << "请输入被修改商品的价格" << endl;
+
+			while (scanf_s("%lf", &aaa.unitPrice) == 0)
+			{
+				while (getchar() != '\n');
+				cout << "输入错误,请重新输入" << endl;
+			}
+			a[i].unitPrice = aaa.unitPrice;
+			break;
+		}
+		
+	}
+	if (i == m)
+		{
+			cout << "无此订单,或已成交" << endl;
+			delete[]a;
+			return;
+		}
+		fclose(fp);
+		FILE *fp1 = fopen("C:\\Users\\Administrator\\Desktop\\project1\\project1\\order.txt", "w");
+		for (int i = 0; i <= m - 1; i++)
+		{
+			fwrite(&a[i], sizeof(Order), 1, fp1);
+		}
+		cout << "修改成功" << endl;
+		fclose(fp1);
+		delete[]a;
 }

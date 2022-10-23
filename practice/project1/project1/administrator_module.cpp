@@ -1,5 +1,7 @@
 #include"administrator_module.h"
 #include"calculator.h"
+//#include <stdlib.h>
+#include<windows.h>
 void administrator_module()
 {
 	char k[100];
@@ -24,7 +26,7 @@ A:
 	case 4: a.all_order(); break;
 	case 5: a.all_user(); break;
 	case 6: a.delete_user(); break;
-	case 7: system("cls"); return; break;
+	case 7: cout << "正在跳转" << endl;Sleep(1000);  system("cls"); return; break;
 	case 8: calculator(); break;
 	default:cout << "输入错误" << endl;
 	}

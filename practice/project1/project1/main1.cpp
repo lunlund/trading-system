@@ -178,6 +178,7 @@ void main_::check()
 	for (int i = 0; i <= num_c - 1; i++)
 	{
 		fread(&c[i], sizeof(Commodity), 1, fpc);
+		//c[i].state = 1;
 	}
 	fclose(fpo);
 	fclose(fpc);
@@ -188,7 +189,7 @@ void main_::check()
 	strftime(tmp, sizeof(tmp), "%Y-%m-%d", localtime(&timep));
 	for (int i = 0; i <= num_c - 1; i++)//商品数量，订单状态，订单购买数量，用户余额(买家减少，卖家增多），商品状态
 	{
-		if (c[i].state == 1)//找到在售商品,且过了一天  if (c[i].state == 1 && strcmp(tmp, c[i].addedDate) != 0)
+		if (c[i].state == 1 && strcmp(tmp, c[i].addedDate) != 0)//if (c[i].state == 1)////////找到在售商品,且过了一天  
 		{
 			c[i].state = 0;
 			vector_<Order*> oo;

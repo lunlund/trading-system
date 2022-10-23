@@ -160,7 +160,7 @@ void sellers::modify_information(User &aa)
 			{
 				cout << "请输入被修改商品的价格" << endl;
 				//cin >> aaa.price;
-				while (scanf_s("%lf", &aaa.price) == 0)
+				while (scanf_s("%lf", &aaa.price) == 0||aaa.price<0)
 				{
 					while (getchar() != '\n');
 					cout << "输入错误,请重新输入" << endl;

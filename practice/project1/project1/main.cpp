@@ -2,6 +2,7 @@
 #include"administrator_module.h"
 #include"user_module.h"
 #include<string>
+#include<windows.h>
 int main()
 {
 	char k[100];
@@ -23,6 +24,7 @@ int main()
 		{
 		case 1: if (a.administrator() == 1)
 		{
+			cout << "正在跳转" << endl; Sleep(1000);
 			system("cls");
 			administrator_module();
 		}
@@ -42,6 +44,7 @@ int main()
 			User *aa = a.sign_in();
 			if (aa != NULL)
 			{
+				cout << "正在跳转" << endl; Sleep(1000);
 				system("cls");
 				user_module(*aa);
 			}

@@ -117,7 +117,7 @@ void information::recharge(User &aa)
 	cout << "请输入充值金额" << endl;
 	double aaa;
 	//cin >> aaa;
-	while (scanf_s("%lf", &aaa) == 0)
+	while (scanf_s("%lf", &aaa) == 0||aaa<0)
 	{
 		while (getchar() != '\n');
 		cout << "输入错误,请重新输入" << endl;

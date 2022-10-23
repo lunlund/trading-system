@@ -11,5 +11,5 @@ public:
 	void search_commodity();
 	void all_order(User &a);
 	void commodity_information();
-
+	void modify_price(User &a);
 };
